@@ -4,19 +4,32 @@ import Logo from "./Logo";
 import BestPokemonFetcher from "./BestPokemon.js";
 
 const CaughtPokemon = () => {
-  const [totalCaught, setCount] = useState(0);
-  function incrementTotal() {
-    setCount(totalCaught + 1);
+  const [pokemonNameInput, setPokemonName] = useState("");
+  function handleInputChange(event) {
+    setPokemonName(event.target.value);
+  }
+  const [caughtPokemon, setCaughtPokemon] = useState([]);
+  console.log(caughtPokemon);
+  function catchPokemon() {
+    setCaughtPokemon(caughtPokemon.concat(pokemonNameInput));
+    setPokemonName("");
   }
 
-  const date = new Date().toLocaleDateString();
+  // const date = new Date().toLocaleDateString();
 
   return (
     <div>
-      <p>
-        Caught {totalCaught}Pokemon on {date};
-      </p>
-      <button onClick={incrementTotal}>Add Pokemon</button>
+      <ul>
+        {caughtPokemon.map((name) => {
+          return <li>{name}</li>;
+        })}
+      </ul>
+      <input
+        type="text"
+        value={pokemonNameInput}
+        onChange={handleInputChange}
+      />
+      <button onClick={catchPokemon}>Add Pokemon</button>
     </div>
   );
 };
